@@ -8,7 +8,7 @@ pipeline {
         DOCKER_IMAGE_NAME = 'chenna1206/easyshop-app'
         DOCKER_MIGRATION_IMAGE_NAME = 'chenna1206/easyshop-migration'
         DOCKER_IMAGE_TAG = "${BUILD_NUMBER}"
-        GITHUB_CREDENTIALS = credentials('github-credentials')
+        GITHUB_CREDENTIALS = credentials('jenkins-github-token')
         GIT_BRANCH = "master"
     }
     
