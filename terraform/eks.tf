@@ -23,7 +23,7 @@ module "eks" {
   version = "~> 20.0"
 
   cluster_name                    = local.name
-  cluster_version                 = "1.31"
+  cluster_version                 = "1.36"
   cluster_endpoint_public_access  = false
   cluster_endpoint_private_access = true
 
@@ -31,7 +31,7 @@ module "eks" {
   access_entries = {
     # One access entry with a policy associated
     example = {
-      principal_arn = "arn:aws:iam::876997124628:user/terraform"
+      principal_arn = "arn:aws:iam::911291530745:user/bedrock-user"
 
       policy_associations = {
         example = {
@@ -78,7 +78,6 @@ module "eks" {
   eks_managed_node_group_defaults = {
 
     instance_types = ["t3.large"]
-
     attach_cluster_primary_security_group = true
 
   }
@@ -90,7 +89,7 @@ module "eks" {
     tws-demo-ng = {
       min_size     = 1
       max_size     = 3
-      desired_size = 1
+      desired_size = 3
 
       instance_types = ["t3.large"]
       capacity_type  = "SPOT"
@@ -99,7 +98,8 @@ module "eks" {
       use_custom_launch_template = false # Important to apply disk size!
 
       remote_access = {
-        ec2_ssh_key               = resource.aws_key_pair.deployer.key_name
+        #ec2_ssh_key               = resource.aws_key_pair.deployer.key_name
+        ec2_ssh_key               = "ycr-aws5-keypair2"
         source_security_group_ids = [aws_security_group.node_group_remote_access.id]
       }
 
